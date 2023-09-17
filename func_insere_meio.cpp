@@ -3,47 +3,59 @@
 #include <stdlib.h>
 using namespace std;
 
-void insere_meio(int vet[], int *tam, int elemento) {
-    
-    if (*tam >= 2)
+#include <stdio.h>
+
+int insere_meio(int *vetor, int qtde, int elemento) 
+{
+    if (qtde < 0) 
     {
-        
-        int meio = *tam / 2;
-        
-        
-        for (int i = *tam - 1; i >= meio; i--)
-        {
-            vet[i + 1] = vet[i];
-        }
-        
-      
-        vet[meio] = elemento;
-        
-        
-        (*tam)++;
-    } 
-    else
-    {
-      
-        cout<<"O vetor deve ter pelo menos 2 elementos para inserção no meio."<<endl;
+        cout<<"Erro: Quantidade inválida."<<endl;
+        return -1;
     }
+    
+    
+    int meio = qtde / 2;
+    
+   
+    for (int i = qtde; i > meio; i--) 
+    {
+        vetor[i] = vetor[i - 1];
+    }
+    
+   
+    vetor[meio] = elemento;
+    
+    
+    return qtde + 1;
 }
 
-int main()
- {
-    int vetor[7] = {1, 2, 3, 4, 5, 6};
-    int qtde = 6;
+int main() {
+    int vetor[100]; 
+    int qtde = 6;   
     
-    int elemento = 100;
+    for (int i = 0; i < qtde; i++) 
+    {
+        vetor[i] = i + 1;
+    }
     
-    insere_meio(vetor, &qtde, elemento);
-    
-    cout<<"Vetor resultante: "<<endl;
+    cout<<"Vetor original: ";
     for (int i = 0; i < qtde; i++) 
     {
         cout<<" "<<vetor[i];
     }
-    cout<<""<<endl;
+    cout<<endl;
+    
+    int elemento = 100;
+    qtde = insere_meio(vetor, qtde, elemento);
+    
+    if (qtde != -1) {
+        cout<<"Vetor após a inserção: "<<endl;
+        for (int i = 0; i < qtde; i++) 
+        {
+            cout<<" "<<vetor[i];
+        }
+        cout<<endl;
+    }
     
     return 0;
 }
